@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# gDrive Credentials
+*.pickle
+*.json
+credentials.json
+
 # Distribution / packaging
 .Python
 build/
