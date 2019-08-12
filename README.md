@@ -58,7 +58,7 @@ Create another empty folder for the converted notebooks to be output to. Then:
 $ cd /path/to/the/repository
 $ python consolidate_and_rename.py /path/to/folder/containing/notebook-folder /path/to/output/folder 
 ```
-## Caveates
+## Caveats
 
 Currently, if the upload fails on a particular note, the exporter can't be easily rerun to retry an upload.
 
