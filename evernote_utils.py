@@ -55,28 +55,33 @@ def replace_images(fpath):
         for image in images:
             img_data = img_to_data(resource_path+'/'+image['src'].split('/')[-1].replace('%20', ' '))
             image['src'] = img_data
+            image['width'] = "500"
+            image['height'] = "500"
     if all_media is not []:
         for media in all_media:
             mpath = resource_path+'/'+media['href'].split('/')[-1].replace('%20', ' ')
-            if (media['href'].split('.')[-1] == 'pdf') and ('resources' in mpath):
-                images = convert_from_path(mpath, dpi=300)
-                buffered = BytesIO()
-                datas = []
-                for im in images: # in case of multipage pdf
-                    im.save(buffered, format="png")
-                    data = base64.encodestring(buffered.getvalue()).decode("utf-8").replace('\n', '')
-                    media_data = u'data:%s;base64,%s' % ("image/png", data)
-                    datas.append(media_data)
-                for i,d in enumerate(datas):
-                    if d != '':
-                        tag = soup.new_tag('img')
-                        tag['src'] = media_data
-                        tag['width'] = "500"
-                        tag['height'] = "500"
-                        if i == 1:
-                            media.replace_with(tag)
-                        else:
-                            media.insert_before(tag)
+            if (media['href'].split('.')[-1] == 'pdf') and ('resources' in media['href']):
+                try:
+                    images = convert_from_path(mpath, dpi=300)
+                    buffered = BytesIO()
+                    datas = []
+                    for im in images: # in case of multipage pdf
+                        im.save(buffered, format="png")
+                        data = base64.encodestring(buffered.getvalue()).decode("utf-8").replace('\n', '')
+                        media_data = u'data:%s;base64,%s' % ("image/png", data)
+                        datas.append(media_data)
+                    for i,d in enumerate(datas):
+                        if d != '':
+                            tag = soup.new_tag('img')
+                            tag['src'] = media_data
+                            tag['width'] = "500"
+                            tag['height'] = "500"
+                            if i == 1:
+                                media.replace_with(tag)
+                            else:
+                                media.insert_before(tag)
+                except:
+                    print('Failed to convert pdf media in: %s' % fpath)
 
     with open(fpath, 'w') as f:
         f.write(str(soup))
