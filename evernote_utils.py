@@ -6,12 +6,13 @@ from bs4 import BeautifulSoup as bs
 from io import BytesIO
 from pdf2image import convert_from_path
 
-class FileNotFoundError(Exception):
-    pass
-
-
 def img_to_data(path):
-    """Convert a file (specified by a path) into a data URI."""
+    """Convert a file (specified by a path) into a data URI.
+    params: 
+        fpath: filepath of note
+    Output: base64 encoded bytes string
+    """
+    # Adapted from https://gist.github.com/jsocol/1089733
     if not os.path.exists(path):
         return ''
     mime, _ = mimetypes.guess_type(path)
@@ -57,6 +58,7 @@ def replace_images(fpath):
             image['src'] = img_data
             image['width'] = "500"
             image['height'] = "500"
+    # Go through linked media files and insert uri data if local pdf
     if all_media is not []:
         for media in all_media:
             mpath = resource_path+'/'+media['href'].split('/')[-1].replace('%20', ' ')

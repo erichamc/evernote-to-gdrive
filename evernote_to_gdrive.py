@@ -12,8 +12,8 @@ from evernote_utils import *
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 def main():
-    """Shows basic usage of the Drive v3 API.
-    Prints the names and ids of the first 10 files the user has access to.
+    """Evernote to google drive exporter.
+    Using some example code from the Google Drive API documentation.
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -62,7 +62,7 @@ def main():
         }
         file = service.files().create(body=file_metadata,
                                             fields='id').execute()
-        nb_id = file.get('id')
+        nb_id = file.get('id') # for insertion to the correct folder
         note_paths = [notebook_path+'/'+n for n in os.listdir(notebook_path) if (n.split('.')[-1]=='html') and not (n.split('.')[0]=='index')]
         # iterate through notes
         for note in note_paths:
@@ -87,7 +87,6 @@ def main():
                                                     fields='id').execute()
                 print('Uploaded %s.' % note_name)
             except Exception as e:
-                print(e)
                 print('Failed to upload %s.' % note)
         print('Finished uploading %s!' % notebook_name)
 
