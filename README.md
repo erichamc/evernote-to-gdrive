@@ -1,5 +1,5 @@
 # evernote-to-gdrive
-EverNote note resource consolidation, creation date extraction and note renaming, and upload to Google Drive
+Evernote note resource consolidation, creation date extraction and note renaming, and upload to Google Drive
 
 The goal of this Evernote-to-GoogleDrive exporter is to go from Evernote notes to chronologically ordered Google Docs, preserving linked/inline media as much as possible.
 
