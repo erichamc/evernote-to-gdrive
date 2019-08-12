@@ -46,19 +46,18 @@ Download the credentials.json file and place it in the cloned respository's fold
 First, create an empty folder (named, for example, "notebooks-folder") somewhere. Using the Evernote desktop client, export Evernote notebooks as HTML into this empty folder (Notebook tab -> Right click on a notebook -> Export Notes from "[name of notebook]" -> Save format html). You'll have to type in a name for each one of these notebooks as you save them. You should end up the folder "notebooks-folder" containing folders with the contents of each exported Evernote notebook.
 
 Then, in the command line:
-'''
+```
 $ cd /path/to/the/repository
 $ python evernote_to_gdrive.py /path/to/folder/containing/notebook-folder
-'''
+```
 If it's the first time you do this, Google will pop up a browser window for you to log into your account and allow the script to make changes. After doing so, notebooks will begin uploading.
 
 Alternatively (not using the Google Drive API client):
 Create another empty folder for the converted notebooks to be output to. Then:
-'''
+```
 $ cd /path/to/the/repository
 $ python consolidate_and_rename.py /path/to/folder/containing/notebook-folder /path/to/output/folder 
-'''
-
+```
 ## Caveates
 
 Currently, if the upload fails on a particular note, the exporter can't be easily rerun to retry an upload.
