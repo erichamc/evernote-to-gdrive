@@ -3,7 +3,7 @@ EverNote note resource consolidation, creation date extraction and note renaming
 
 The goal of this Evernote-to-GoogleDrive exporter is to go from Evernote notes to chronologically ordered Google Docs, preserving linked/inline media as much as possible.
 
-###The main functions of this exporter are:
+### The main functions of this exporter are:
 
 - Handle some media types that would otherwise fail to import to a Google Doc
     -- Convert inline note images from referenced files to URI data.
@@ -15,7 +15,7 @@ The goal of this Evernote-to-GoogleDrive exporter is to go from Evernote notes t
     -- Tell Google Drive to convert the file to a Google doc
 - Alert the user of any notes fail to upload (prints to the command line)
 
-###An alternative usage (without setting up the Google Drive API client):
+### An alternative usage (without setting up the Google Drive API client):
 Convert notes and move them into a new folder for each notebook.
 Then, the containing folder can be dragged and dropped into Google Drive.
 For this to convert the notes to Google Docs upon upload, change settings:
