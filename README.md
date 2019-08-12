@@ -3,17 +3,19 @@ Evernote note resource consolidation, creation date extraction and note renaming
 
 The goal of this Evernote-to-GoogleDrive exporter is to go from Evernote notes to chronologically ordered Google Docs, preserving linked/inline media as much as possible.
 
+This software was tested only on a OS X machine.
+
 ### The main functions of this exporter are:
 
-- Handle some media types that would otherwise fail to import to a Google Doc
-    -- Convert inline note images from referenced files to URI data.
-    -- Convert linked PDF files to 300dpi PNGs and then to URI images.
-- Extract the creation date from notes and place it in the note name
-- Create folders on Google Drive for each Evernote notebook
-- Upload each note file to the corresponding notebook folder
-    -- Set the Creation Date metadata of the note appropriately
-    -- Tell Google Drive to convert the file to a Google doc
-- Alert the user of any notes fail to upload (prints to the command line)
+1. Handle some media types that would otherwise fail to import to a Google Doc
+  *Convert inline note images from referenced files to URI data.
+  *Convert linked PDF files to 300dpi PNGs and then to URI images.
+2. Extract the creation date from notes and place it in the note name
+3. Create folders on Google Drive for each Evernote notebook
+4. Upload each note file to the corresponding notebook folder
+  *Set the Creation Date metadata of the note appropriately
+  *Tell Google Drive to convert the file to a Google doc
+5. Alert the user of any notes that fail to upload (prints to the command line)
 
 ### An alternative usage (without setting up the Google Drive API client):
 Convert notes and move them into a new folder for each notebook.
@@ -22,8 +24,6 @@ For this to convert the notes to Google Docs upon upload, change settings:
 (Instructions from Google Drive)
 1. Using a computer, go to drive.google.com/drive/settings.
 2. Next to "Convert Uploads," check the box.
-
-Tested only on an OS X machine.
 
 ## Installation instructions
 
@@ -66,4 +66,4 @@ There isn't much robustness built in to the automatic uploading -- if it fails p
 
 Inline images and linked PDF files should convert appropriately. Other linked files will not and will not be uploaded using this exporter. Links will appear in the Google Doc but will be broken.
 
-Google Drive / Docs doesn't currently allow you to sort by Create Date, so for chronological order of the exported notes, sort by name. If you want to use last-modified date for new notes, consider making a subfolder within the notebook folder on Goolge Drive to contain the exported notes, sorted by name, and put new notes in the top level of the notebook folder, sorted by modification / viewing date.
+Google Drive / Docs doesn't currently allow you to sort by Creation Date, so for chronological order of the exported notes, sort by name. If you want to use last-modified date for new notes, consider making a subfolder within the notebook folder on Goolge Drive to contain the exported notes, sorted by name, and put new notes in the top level of the notebook folder, sorted by modification / viewing date.
