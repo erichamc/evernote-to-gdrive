@@ -29,11 +29,11 @@ Tested only on an OS X machine.
 
 Assuming you have anaconda python:
 
-'''
+```
 conda install -c conda-forge poppler
 pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 pip install beautifulsoup4 pdf2image
-'''
+```
 
 Alternatively, install from requirements.txt.
 
