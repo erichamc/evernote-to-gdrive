@@ -3,6 +3,8 @@ import mimetypes
 import os
 import sys
 from bs4 import BeautifulSoup as bs
+from io import BytesIO
+from pdf2image import convert_from_path
 
 class FileNotFoundError(Exception):
     pass
@@ -46,8 +48,8 @@ def replace_images(fpath):
     resource_path = fpath+'.resources'
     # Find each image tag and replace with corresponding uri data
     soup = bs(note, features="html.parser")
-    images = soup.findAll('img')
-    links = soup.findAll('a')
+    images = soup.findAll('img', src=True)
+    links = soup.findAll('a', href=True)
     all_media = [l for l in links if ('www' not in l['href'])]
     if images is not []:
         for image in images:
@@ -55,11 +57,27 @@ def replace_images(fpath):
             image['src'] = img_data
     if all_media is not []:
         for media in all_media:
-            media_data = img_to_data(resource_path+'/'+media['href'].split('/')[-1].replace('%20', ' '))
-            if media_data != '':
-                tag = soup.new_tag('img')
-                tag['src'] = media_data
-                media.replace_with(tag)
+            mpath = resource_path+'/'+media['href'].split('/')[-1].replace('%20', ' ')
+            if (media['href'].split('.')[-1] == 'pdf') and ('resources' in mpath):
+                images = convert_from_path(mpath, dpi=300)
+                buffered = BytesIO()
+                datas = []
+                for im in images: # in case of multipage pdf
+                    im.save(buffered, format="png")
+                    data = base64.encodestring(buffered.getvalue()).decode("utf-8").replace('\n', '')
+                    media_data = u'data:%s;base64,%s' % ("image/png", data)
+                    datas.append(media_data)
+                for i,d in enumerate(datas):
+                    if d != '':
+                        tag = soup.new_tag('img')
+                        tag['src'] = media_data
+                        tag['width'] = "500"
+                        tag['height'] = "500"
+                        if i == 1:
+                            media.replace_with(tag)
+                        else:
+                            media.insert_before(tag)
+
     with open(fpath, 'w') as f:
         f.write(str(soup))
     

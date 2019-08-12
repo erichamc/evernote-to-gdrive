@@ -68,8 +68,8 @@ def main():
         for note in note_paths:
             # TODO check if folder/note already exists
             try:
-                creation, modification = extract_creation_modification(note)
                 replace_images(note)
+                creation, modification = extract_creation_modification(note)
                 created_date = ''.join(creation.split('T')[0].split('-'))
                 note_name = created_date+'_'+note.split('/')[-1].split('.html')[0]
                 file_metadata = {
@@ -86,8 +86,9 @@ def main():
                                                     media_body=media,
                                                     fields='id').execute()
                 print('Uploaded %s.' % note_name)
-            except:
-                print('Failed to upload %s.' % note_name)
+            except Exception as e:
+                print(e)
+                print('Failed to upload %s.' % note)
         print('Finished uploading %s!' % notebook_name)
 
 if __name__ == '__main__':
