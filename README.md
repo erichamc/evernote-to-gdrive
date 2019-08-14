@@ -8,13 +8,13 @@ This software was tested only on a OS X machine.
 ### The main functions of this exporter are:
 
 1. Handle some media types that would otherwise fail to import to a Google Doc
-  *Convert inline note images from referenced files to URI data.
-  *Convert linked PDF files to 300dpi PNGs and then to URI images.
+    * Convert inline note images from referenced files to URI data.
+    * Convert linked PDF files to 300dpi PNGs and then to URI images.
 2. Extract the creation date from notes and place it in the note name
 3. Create folders on Google Drive for each Evernote notebook
 4. Upload each note file to the corresponding notebook folder
-  *Set the Creation Date metadata of the note appropriately
-  *Tell Google Drive to convert the file to a Google doc
+    * Set the Creation Date metadata of the note appropriately
+    * Tell Google Drive to convert the file to a Google doc
 5. Alert the user of any notes that fail to upload (prints to the command line)
 
 ### An alternative usage (without setting up the Google Drive API client):
@@ -38,7 +38,9 @@ pip install beautifulsoup4 pdf2image
 Alternatively, install from requirements.txt.
 
 Follow the Step 1 instructions to enable the Google Drive API:
+
 https://developers.google.com/drive/api/v3/quickstart/python
+
 Download the credentials.json file and place it in the cloned respository's folder.
 
 ## Usage example
